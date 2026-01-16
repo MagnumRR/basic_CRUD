@@ -11,7 +11,7 @@ def conferir():
     co = conexao()
     # Para o manuseio do banco de dados faz-se necessário o uso do "cursor"
     if co is not None:
-        print('Conexão estabeleecida')
+        print('Conexão estabelecida')
         cursor = co.cursor()
     else:
         print('Sem conexão com o banco!')
@@ -31,6 +31,37 @@ def conferir():
         cursor.close()    
         co.close()    
         
-        
+# Funcionalidade - inserindo dados
+def inserir():
+    co = conexao()
+    
+    if co is not None:
+        print('- Conexão estabelecida -')
+        cursor = co.cursor()
+    else:
+        print('Sem conexão com o banco!')        
+    
+    # Solicitando ao usuário que informe os dados serem adicionados
+    nome = input('Informe o nome: ')
+    cargo = input('Informe o cargo: ')
+    salario = float(input('Informe o salario: '))
+    
+    # Realizando a inserção 
+    cursor.execute(f"INSERT INTO cargos (nome, cargo, salario) VALUES ('{nome}', '{cargo}', {salario})")
+    # Salvando os dados na tabela
+    co.commit()
+    
+    # Realiza-se uma conferência, onde houver pelo menos uma linha armazenada no banco retorna-se uma mensagem de confirmação.
+    if cursor.rowcount == 1:
+        print(f'O funcionário: {nome} foi gravado com sucesso')
+    else:
+        print('Funcionário não cadastrado!')
+        co.close()
+
+
+    
+    
+    
+    
     
     

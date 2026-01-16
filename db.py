@@ -31,7 +31,5 @@ def conexao ():
     except Error as e:
         print(f'Erro na conexão: {e}')
         return None
-          
-conexao()
 
 

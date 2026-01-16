@@ -57,9 +57,10 @@ Demonstração de CRUD simples utilizando linguagem python
 
 ## Leitura do banco de dados - Função Conferir
 	from db import conexao
-import db
-import mysql.connector
-# Para cada funcionalidade será criada uma função
+	import db
+	import mysql.connector
+
+# Funcionalidade - Leitura da tabela (Conferir)
 
 	def conferir(): 
 		**Acesso ao banco de dados:
@@ -86,3 +87,31 @@ import mysql.connector
 			print('Tabela vazia')        
 			cursor.close()    
 			co.close() 
+
+## Funcionalidade - Inserção de dados (Inserir)
+	**Funcionalidade - inserindo dados
+	def inserir():
+		co = conexao()
+		
+		if co is not None:
+			print('- Conexão estabelecida -')
+			cursor = co.cursor()
+		else:
+			print('Sem conexão com o banco!')        
+		
+		**Solicitando ao usuário que informe os dados serem adicionados
+		nome = input('Informe o nome: ')
+		cargo = input('Informe o cargo: ')
+		salario = float(input('Informe o salario: '))
+		
+		**Realizando a inserção 
+		cursor.execute(f"INSERT INTO cargos (nome, cargo, salario) VALUES ('{nome}', '{cargo}', {salario})")
+		# Salvando os dados na tabela
+		co.commit()
+		
+		**Realiza-se uma conferência, onde houver pelo menos uma linha armazenada no banco retorna-se uma mensagem de confirmação.
+		if cursor.rowcount == 1:
+			print(f'O funcionário: {nome} foi gravado com sucesso')
+		else:
+			print('Funcionário não cadastrado!')
+			co.close()
