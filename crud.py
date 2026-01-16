@@ -20,12 +20,15 @@ def conferir():
     cargos = cursor.fetchall()  # O cursor devolve ao atributo cargos na forma de tabela
 
     if len(cargos) > 0: # Se o tamanho dos elementos da tabela cargos for maior que zero retorna os dados da tabela
+        print('------- Cadastros (Cargos) ----------')
+        print(f'------- {len(cargos)} cadastros ----------')
         for ca in cargos:
-            print('-------Tabela Cargos ----------')
             print(f'Id: {ca[0]}')
             print(f'Nome: {ca[1]}')
             print(f'Cargo: {ca[2]}')
-            print(f'Salário: {ca[3]}')
+            print(f'Salário: R$ {ca[3]}')
+            print('')
+        print('-------------------------------')    
     else:
         print('Tabela vazia')        
         cursor.close()    
