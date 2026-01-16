@@ -76,7 +76,7 @@ Demonstração de CRUD simples utilizando linguagem python
 		cargos = cursor.fetchall()  # O cursor devolve ao atributo cargos na forma de tabela
 
 		** Realizar-se um loop, com a condição: se houver algo na tabela, ela então exibe os dados, caso contrário retorna uma mensagem
-		if len(cargos) > 0:
+		if len(cargos) > 0: **Se o tamanho dos elementos da tabela cargos for maior que zero retorna os dados da tabela
 			for ca in cargos:
 				print('-------Tabela Cargos ----------')
 				print(f'Id: {ca[0]}')
@@ -104,10 +104,11 @@ Demonstração de CRUD simples utilizando linguagem python
 		cargo = input('Informe o cargo: ')
 		salario = float(input('Informe o salario: '))
 		
-		**Realizando a inserção 
-		cursor.execute(f"INSERT INTO cargos (nome, cargo, salario) VALUES ('{nome}', '{cargo}', {salario})")
-		# Salvando os dados na tabela
-		co.commit()
+		**Parâmetros da inserção
+    	query = "INSERT INTO cargos (nome, cargo, salario) VALUES (%s, %s, %s)"
+    	cursor.execute(query, (nome, cargo, salario))
+    	**Salvando os dados na tabela
+    	co.commit()
 		
 		**Realiza-se uma conferência, onde houver pelo menos uma linha armazenada no banco retorna-se uma mensagem de confirmação.
 		if cursor.rowcount == 1:
@@ -133,13 +134,46 @@ Demonstração de CRUD simples utilizando linguagem python
 		cargo = input('Cargo do funcionário: ')
 		salario = float(input('Salário do funcionário: '))
 		
-		**Os dados são atualizados no banco
-		cursor.execute(f"UPDATE cargos set nome='{nome}', cargo='{cargo}', salario={salario} WHERE id={cod}")
-		**Dados Gravados
+		query = "UPDATE cargos SET nome=%s, cargo=%s, salario=%s WHERE id=%s"
+    	cursor.execute(query, (nome, cargo, salario, cod))
+   		**Dados gravados
 		co.commit()
+		
 		**Se pelo menos uma linha de dados foi gravada é retornado uma mensagem de confirmação
 		if cursor.rowcount == 1:
 			print(f'Os dados do funcionário: {nome} foram atualizados!')
 		else:
 			print('Falha ao atualizar os dados')
-			co.close()			
+			co.close()
+
+## Funcionalidade - Exclusão de dados
+	**Função EXCLUIR dados da tabela
+	def excluir():
+		co = conexao()
+		
+		if co is not None:
+			print('- Conexão estabelecida -')
+			cursor = co.cursor()
+		else:
+			print('Sem conexão com o banco!')
+		
+		cod = int(input('Informe o id do funcionário: '))
+		
+		**Parâmetros de consulta ao MySQL:
+		query = "SELECT nome FROM cargos WHERE id=%s"
+		cursor.execute(query, (cod,))
+		res = cursor.fetchone()
+		
+		if res is not None:
+			print(f'Funcionário designado: {res[0]}') **Consulta com base no id (item [0] da tabela)
+			conf = input('Deseja excluir este cadastro? (s - Sim / n -- não): ')
+			if conf == 's':
+				query2 = "DELETE FROM cargos WHERE id=%s"
+				cursor.execute(query2, (cod,))
+				co.commit()
+				print('Exclusão realizada com sucesso')
+			else:
+				print('Exclusão cancelada!')        
+		else:
+			print('Funcionário inexistente')
+		co.close()					
