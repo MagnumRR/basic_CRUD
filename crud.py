@@ -58,9 +58,30 @@ def inserir():
         print('Funcionário não cadastrado!')
         co.close()
 
-
+# Funcionalidade - Atualizando dados
+def atualizar():
+    co = conexao()
     
+    if co is not None:
+        print('- Conexão estabelecida -')
+        cursor = co.cursor()
+    else:
+        print('Sem conexão com o banco!')
     
+    cod = int(input('Id do funcionário: '))
+    nome = input('Nome do funcionário: ')
+    cargo = input('Cargo do funcionário: ')
+    salario = float(input('Salário do funcionário: '))
+    
+    cursor.execute(f"UPDATE cargos set nome='{nome}', cargo='{cargo}', salario={salario} WHERE id={cod}")
+    co.commit()
+    if cursor.rowcount == 1:
+        print(f'Os dados do funcionário: {nome} foram atualizados!')
+    else:
+        print('Falha ao atualizar os dados')
+        co.close()    
+    
+conferir()    
     
     
     

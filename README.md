@@ -115,3 +115,31 @@ Demonstração de CRUD simples utilizando linguagem python
 		else:
 			print('Funcionário não cadastrado!')
 			co.close()
+
+# Funcionalidade - Atualização de dados (atualizar)
+	**Funcionalidade - Atualizando dados
+	def atualizar():
+		co = conexao()
+		
+		if co is not None:
+			print('- Conexão estabelecida -')
+			cursor = co.cursor()
+		else:
+			print('Sem conexão com o banco!')
+		
+		**Entrada de dados pelo usuário a serem atualizados
+		cod = int(input('Id do funcionário: '))
+		nome = input('Nome do funcionário: ')
+		cargo = input('Cargo do funcionário: ')
+		salario = float(input('Salário do funcionário: '))
+		
+		**Os dados são atualizados no banco
+		cursor.execute(f"UPDATE cargos set nome='{nome}', cargo='{cargo}', salario={salario} WHERE id={cod}")
+		**Dados Gravados
+		co.commit()
+		**Se pelo menos uma linha de dados foi gravada é retornado uma mensagem de confirmação
+		if cursor.rowcount == 1:
+			print(f'Os dados do funcionário: {nome} foram atualizados!')
+		else:
+			print('Falha ao atualizar os dados')
+			co.close()			
