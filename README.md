@@ -1,5 +1,5 @@
 # basic_CRUD
-Demonstração de CRUD simples utilizando linguagem python
+Demonstração de CRUD simples utilizando linguagem python e um banco de dados MySQL
 
 ## Estrutura do projeto:
 	├── main.py - Arquivo principal para acesso ao menu do sistema
@@ -55,12 +55,10 @@ Demonstração de CRUD simples utilizando linguagem python
 ## Estrutura do arquivo crud.py
 	Este arquivo conterá todas as funcionalidades essenciais que O CRUD realiza: (CREATE - CRIAR / READ - LEITURA / UPDATE - ATUALIZAR / DELETE - EXCLUIR)
 
-## Leitura do banco de dados - Função Conferir
+## Funcionalidade - Leitura da tabela (Conferir)
 	from db import conexao
 	import db
 	import mysql.connector
-
-# Funcionalidade - Leitura da tabela (Conferir)
 
 	def conferir(): 
 		**Acesso ao banco de dados:
@@ -180,11 +178,9 @@ Demonstração de CRUD simples utilizando linguagem python
 
 ## Funcionalidade - Menu de opções CRUD
 	# Acesso ao sistema de consulta e cadastro
-# Importação das funcionalidades do arquivo "crud.py"
-import crud
+	* Importação das funcionalidades do arquivo "crud.py"
+	import crud
 
-# fucncionalidade - Menu
-	**Funcão Menu de opções
 	def menu ():
 		print('--------- SISTEMA CRUD ----------')
 		print('1) Consultar cadastros')
