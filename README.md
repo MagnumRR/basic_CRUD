@@ -1,5 +1,5 @@
-# basic_CRUD
-Demonstração de CRUD simples utilizando linguagem python e um banco de dados MySQL
+# SIMPLE CRUD 1 - Python e MySQL
+Projeto em Python com persistência a um banco de dados MySQ, das funcionalidades CRUD.
 
 ## Estrutura do projeto:
 	├── main.py - Arquivo principal para acesso ao menu do sistema
@@ -115,7 +115,7 @@ Demonstração de CRUD simples utilizando linguagem python e um banco de dados M
 			print('Funcionário não cadastrado!')
 			co.close()
 
-# Funcionalidade - Atualização de dados (atualizar)
+## Funcionalidade - Atualização de dados (atualizar)
 	**Funcionalidade - Atualizando dados
 	def atualizar():
 		co = conexao()
